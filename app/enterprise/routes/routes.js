@@ -3,11 +3,11 @@ var tw = require ('../models/tweets');
 module.exports = function (app){
     
     app.get ('/api/key/:tw', function (req, res){
-        tw.find({
-            theme : req.params.enterprise
-        }, function (err, conj){
+        var query = tw.find().lean().where('tweet').regex(req.params.tw).limit(2500);
+        
+        query.exec (function (err, conj){
             if (err)
-                res.send(err);
+                res.send (err);
             res.json(conj);
         });
     });
