@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Especificación de API</title>
+    <meta charset="utf-8">
+    <!-- Include meta tag to ensure proper rendering and touch zooming -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Include bootstrap stylesheets -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/api.css">
+  </head>
+
+  <body>
+    <div class="container"> 
+        
+        <div class="path">
+            
+            <h2>Índice</h2>
+            <ol>
+                <li><a href="#Empresas">Empresas</a></li>
+                <ol>
+                    <li><a href="#/api/empresa">/api/{empresa}</a></li>
+                    <li><a href="#/api/empresa/key">/api/{empresa}/key/{término}</a></li>
+                    <li><a href="#/api/empresa/keydate">/api/{empresa}/keydate</a></li>
+                    <li><a href="#/api/empresa/keylang">/api/{empresa}/keylang</a></li>
+                    <li><a href="#/api/empresa/keydatelang">/api/{empresa}/keydatelang</a></li>
+                    <li><a href="#/api/empresa/count">/api/{empresa}/count</a></li>
+                    <li><a href="#/api/empresa/count/polarity">/api/{empresa}/count/polarity</a></li>
+                    <li><a href="#/api/empresa/count/datepol">/api/{empresa}/count/datepol</a></li>
+                    <li><a href="#/api/empresa/count/date">/api/{empresa}/count/date</a></li>
+                </ol>
+                <li><a href="#Noticias">Noticias</a></li> 
+                <ol>
+                    <li><a href="#/api/feed">/api/feed</a></li>
+                    <li><a href="#/api/feed/title">/api/feed/title/{keyword}</a></li>
+                    <li><a href="#/api/feed/desc">/api/feed/desc/{keyword}</a></li>
+                    <li><a href="#/api/feed/descDate">/api/feed/descDate</a></li>
+                    <li><a href="#/api/feed/date">/api/feed/date</a></li>
+                </ol>
+            </ol>
+            <h2><a name="Empresas">Empresas</a></h2>
+            
+            <table class="table table-striped">
+                <tr>
+                    <th colspan="2"><a name="/api/empresa">/api/{empresa}</a></th>
+                </tr>
+                <tr>
+                    <th>Descripción</th>
+                    <td>Obtiene todos los tweets almacenados en la base de datos relacionados con la empresa indicada. </td>
+                </tr>
+                <tr>
+                    <th>Parámetros</th>
+                    <td>Empresa = [apple, microsoft, google]</td>
+                </tr>
+                <tr>
+                    <th>Método</th>
+                    <td>GET</td>
+                </tr>
+                <tr>
+                    <th>Tipo devuelto</th>
+                    <td>JSON</td>
+                </tr>
+            </table>
+          
+            <table class="table table-striped">
+                <tr>
+                    <th colspan="2"><a name="/api/empresa/key">/api/{empresa}/key/{término}</a></th>
+                </tr>
+                <tr>
+                    <th>Descripción</th>
+                    <td>Obtiene todos los tweets almacenados en la base de datos que contengan el término y estén relacionados con la empresa indicada. </td>
+                </tr>
+                <tr>
+                    <th>Parámetros</th>
+                    <td>
+                        Empresa = [apple, microsoft, google] <br />
+                        Término = { palabra a consultar }
+                    </td>
+                </tr>
+                <tr>
+                    <th>Método</th>
+                    <td>GET</td>
+                </tr>
+                <tr>
+                    <th>Tipo devuelto</th>
+                    <td>JSON</td>
+                </tr>
+            </table>
+            
+            <table class="table table-striped">
+                <tr>
+                    <th colspan="2"><a name="/api/empresa/keydate">/api/{empresa}/keydate?keyword=[palabra clave]&from=[fecha]&to=[fecha]</a></th>
+                </tr>
+                <tr>
+                    <th>Descripción</th>
+                    <td>Obtiene todos los tweets almacenados en la base de datos que contengan el término y estén relacionados con la empresa indicada y además se hayan publicado entre las dos fechas indicadas. </td>
+                </tr>
+                <tr>
+                    <th>Parámetros</th>
+                    <td>
+                        Empresa = [apple, microsoft, google] <br />
+                        Keyword = { palabra clave } <br />
+                        From = Fecha inicio ("YYYY-mm-dd") <br />
+                        To = Fecha fin ("YYYY-mm-dd")
+                    </td>
+                </tr>
+                <tr>
+                    <th>Método</th>
+                    <td>GET</td>
+                </tr>
+                <tr>
+                    <th>Tipo devuelto</th>
+                    <td>JSON</td>
+                </tr>
+            </table>
+            
+            <table class="table table-striped">
+                <tr>
+                    <th colspan="2"><a name="/api/empresa/keylang">/api/{empresa}/keylang?keyword=[palabra clave]&lang=[idioma]</a></th>
+                </tr>
+                <tr>
+                    <th>Descripción</th>
+                    <td>Obtiene todos los tweets almacenados en la base de datos que contengan el término, estén relacionados con la empresa indicada y además estén en el idioma especificado. </td>
+                </tr>
+                <tr>
+                    <th>Parámetros</th>
+                    <td>
+                        Empresa = [apple, microsoft, google] <br />
+                        Keyword = { palabra a consultar } <br />
+                        Lang = [en, es]
+                    </td>
+                </tr>
+                <tr>
+                    <th>Método</th>
+                    <td>GET</td>
+                </tr>
+                <tr>
+                    <th>Tipo devuelto</th>
+                    <td>JSON</td>
+                </tr>
+            </table>    
+            
+            <table class="table table-striped">
+                <tr>
+                    <th colspan="2"><a name="/api/empresa/keydatelang">/api/{empresa}/keydatelang?keyword=[palabra clave]&from=[fecha]&to=[fecha]&lang=[idioma]</a></th>
+                </tr>
+                <tr>
+                    <th>Descripción</th>
+                    <td>Obtiene todos los tweets almacenados en la base de datos que contengan el término, estén relacionados con la empresa indicada, se hayan publicado entre las dos fechas y además estén en el idioma especificado. </td>
+                </tr>
+                <tr>
+                    <th>Parámetros</th>
+                    <td>
+                        Empresa = [apple, microsoft, google] <br />
+                        Keyword = { palabra clave } <br />
+                        From = Fecha inicio ("YYYY-mm-dd") <br />
+                        To = Fecha fin ("YYYY-mm-dd") <br />
+                        Lang = [en, es]
+                    </td>
+                </tr>
+                <tr>
+                    <th>Método</th>
+                    <td>GET</td>
+                </tr>
+                <tr>
+                    <th>Tipo devuelto</th>
+                    <td>JSON</td>
+                </tr>
+            </table>
+            
+            <table class="table table-striped">
+                <tr>
+                    <th colspan="2"><a name="/api/empresa/count">/api/{empresa}/count</a></th>
+                </tr>
+                <tr>
+                    <th>Descripción</th>
+                    <td>Obtiene el número de tweets almacenados en la base de datos que estén relacionados con la empresa indicada. </td>
+                </tr>
+                <tr>
+                    <th>Parámetros</th>
+                    <td>{ Ninguno }<td>
+                </tr>
+                <tr>
+                    <th>Método</th>
+                    <td>GET</td>
+                </tr>
+                <tr>
+                    <th>Tipo devuelto</th>
+                    <td>JSON</td>
+                </tr>
+            </table>
+            
+            <table class="table table-striped">
+                <tr>
+                    <th colspan="2"><a name="/api/empresa/count/polarity">/api/{empresa}/count/polarity?polarity=[polaridad]</a></th>
+                </tr>
+                <tr>
+                    <th>Descripción</th>
+                    <td>Obtiene el número de tweets relacionados con la empresa y que tengan el nivel de polaridad especificado.  </td>
+                </tr>
+                <tr>
+                    <th>Parámetros</th>
+                    <td>
+                        Empresa = [apple, microsoft, google] <br />
+                        Polarity = [-1, 0, 1]
+                    </td>
+                </tr>
+                <tr>
+                    <th>Método</th>
+                    <td>GET</td>
+                </tr>
+                <tr>
+                    <th>Tipo devuelto</th>
+                    <td>JSON</td>
+                </tr>
+            </table>
+            
+            <table class="table table-striped">
+                <tr>
+                    <th colspan="2"><a name="/api/empresa/count/datepol">/api/{empresa}/datepol?polarity=[polaridad]&from=[fecha]&to=[fecha]</a></th>
+                </tr>
+                <tr>
+                    <th>Descripción</th>
+                    <td>Obtiene el número de tweets almacenados en la base de datos que estén relacionados con la empresa indicada, se hayan publicado entre las dos fechas y además tengan el mismo nivel de polaridad que el especificado en los parámetros.</td>
+                </tr>
+                <tr>
+                    <th>Parámetros</th>
+                    <td>
+                        Empresa = [apple, microsoft, google] <br />
+                        Polarity = [-1, 0 , 1] <br />
+                        From = Fecha inicio ("YYYY-mm-dd") <br />
+                        To = Fecha fin ("YYYY-mm-dd")
+                    </td>
+                </tr>
+                <tr>
+                    <th>Método</th>
+                    <td>GET</td>
+                </tr>
+                <tr>
+                    <th>Tipo devuelto</th>
+                    <td>JSON</td>
+                </tr>
+            </table>
+            
+            <table class="table table-striped">
+                <tr>
+                    <th colspan="2"><a name="/api/empresa/count/date">/api/{empresa}/count/date?from=[fecha]&to=[fecha]</a></th>
+                </tr>
+                <tr>
+                    <th>Descripción</th>
+                    <td>Obtiene el número de tweets almacenados en la base de datos que se hayan publicado entre las dos fechas especificadas. . </td>
+                </tr>
+                <tr>
+                    <th>Parámetros</th>
+                    <td>
+                        Empresa = [apple, microsoft, google] <br />
+                        From = Fecha inicio ("YYYY-mm-dd") <br />
+                        To = Fecha fin ("YYYY-mm-dd") 
+                    </td>
+                </tr>
+                <tr>
+                    <th>Método</th>
+                    <td>GET</td>
+                </tr>
+                <tr>
+                    <th>Tipo devuelto</th>
+                    <td>JSON</td>
+                </tr>
+            </table>
+            
+            <h2><a name="Noticias">Noticias</a></h2>
+            
+            <table class="table table-striped">
+                <tr>
+                    <th colspan="2"><a name="/api/feed">/api/feed</a></th>
+                </tr>
+                <tr>
+                    <th>Descripción</th>
+                    <td>Obtiene todas las noticias almacenadas en la base de datos. </td>
+                </tr>
+                <tr>
+                    <th>Parámetros</th>
+                    <td>{ Ninguno }</td>
+                </tr>
+                <tr>
+                    <th>Método</th>
+                    <td>GET</td>
+                </tr>
+                <tr>
+                    <th>Tipo devuelto</th>
+                    <td>JSON</td>
+                </tr>
+            </table>
+            
+            <table class="table table-striped">
+                <tr>
+                    <th colspan="2"><a name="/api/feed/title">/api/feed/title/{keyword}</a></th>
+                </tr>
+                <tr>
+                    <th>Descripción</th>
+                    <td>Obtiene todas las noticias almacenadas en la base de datos que contengan en el título la palabra clave indicada. </td>
+                </tr>
+                <tr>
+                    <th>Parámetros</th>
+                    <td>Keyword = { palabra clave }</td>
+                </tr>
+                <tr>
+                    <th>Método</th>
+                    <td>GET</td>
+                </tr>
+                <tr>
+                    <th>Tipo devuelto</th>
+                    <td>JSON</td>
+                </tr>
+            </table>
+            
+            <table class="table table-striped">
+                <tr>
+                    <th colspan="2"><a name="/api/feed/desc">/api/feed/desc/{keyword}</a></th>
+                </tr>
+                <tr>
+                    <th>Descripción</th>
+                    <td>Obtiene todas las noticias almacenadas en la base de datos y que contenga en la descripción la palabra clave indicada.  </td>
+                </tr>
+                <tr>
+                    <th>Parámetros</th>
+                    <td>Keyword = { palabra clave }</td>
+                </tr>
+                <tr>
+                    <th>Método</th>
+                    <td>GET</td>
+                </tr>
+                <tr>
+                    <th>Tipo devuelto</th>
+                    <td>JSON</td>
+                </tr>
+            </table>
+            
+            <table class="table table-striped">
+                <tr>
+                    <th colspan="2"><a name="/api/feed/descDate">/api/feed/desDate?keyword=[palabra clave]&from=[fecha]&to=[fecha]</a></th>
+                </tr>
+                <tr>
+                    <th>Descripción</th>
+                    <td>Obtiene todas las noticias almacenadas en la base de datos que contenga en la descripción la palabra clave indicada, y se haya publicado entre las dos fechas establecidas. </td>
+                </tr>
+                <tr>
+                    <th>Parámetros</th>
+                    <td>
+                        Keyword = { palabra clave } <br />
+                        From = Fecha inicio ("YYYY-mm-dd") <br />
+                        To = Fecha fin ("YYYY-mm-dd")
+                    </td>
+                </tr>
+                <tr>
+                    <th>Método</th>
+                    <td>GET</td>
+                </tr>
+                <tr>
+                    <th>Tipo devuelto</th>
+                    <td>JSON</td>
+                </tr>
+            </table>
+            
+            <table class="table table-striped">
+                <tr>
+                    <th colspan="2"><a name="/api/feed/date">/api/feed/date?from=[fecha]&to=[fecha]</a></th>
+                </tr>
+                <tr>
+                    <th>Descripción</th>
+                    <td>Obtiene todas las noticias almacenadas en la base de datos que se hayan publicado en las fechas especificadas. </td>
+                </tr>
+                <tr>
+                    <th>Parámetros</th>
+                    <td>
+                        From = Fecha inicio ("YYYY-mm-dd") <br />
+                        To = Fecha fin ("YYYY-mm-dd")
+                    </td>
+                </tr>
+                <tr>
+                    <th>Método</th>
+                    <td>GET</td>
+                </tr>
+                <tr>
+                    <th>Tipo devuelto</th>
+                    <td>JSON</td>
+                </tr>
+            </table>
+            
+        </div>
+        
+    </div>
+
+    <!-- JavaScript placed at the end of the document so the pages load faster -->
+    <!-- Optional: Include the jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Optional: Incorporate the Bootstrap JavaScript plugins -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  </body>
+
+</html>

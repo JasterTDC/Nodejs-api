@@ -1,0 +1,15 @@
+{
+    "name" : "tweetsPolarity",
+    "version" : "0.0.0",
+    "description" : "Recover tweets from a MongoDB",
+    "main" : "server.js",
+    "author" : "Ismael Moral <imc00018@red.ujaen.es>",
+    "dependencies" : {
+        "express" : "latest",
+        "mongoose" : "latest",
+        "body-parser" : "latest",
+        "morgan" : "latest",
+        "method-override" : "latest",
+	"serve-favicon" : "latest"
+    }
+}
