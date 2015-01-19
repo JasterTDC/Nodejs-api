@@ -19,6 +19,7 @@
             <ol>
                 <li><a href="#Empresas">Empresas</a></li>
                 <ol>
+                    <li><a href="#/api/key">/api/key/{término}</a></li>
                     <li><a href="#/api/empresa">/api/{empresa}</a></li>
                     <li><a href="#/api/empresa/key">/api/{empresa}/key/{término}</a></li>
                     <li><a href="#/api/empresa/keydate">/api/{empresa}/keydate</a></li>
@@ -39,6 +40,28 @@
                 </ol>
             </ol>
             <h2><a name="Empresas">Empresas</a></h2>
+            
+            <table class="table table-striped">
+                <tr>
+                    <th colspan="2"><a name="/api/key">/api/key/{término}</a></th>
+                </tr>
+                <tr>
+                    <th>Descripción</th>
+                    <td>Obtiene todos los tweets almacenados en la base de datos que contengan ese término. </td>
+                </tr>
+                <tr>
+                    <th>Parámetros</th>
+                    <td>Término = { palabra clave }</td>
+                </tr>
+                <tr>
+                    <th>Método</th>
+                    <td>GET</td>
+                </tr>
+                <tr>
+                    <th>Tipo devuelto</th>
+                    <td>JSON</td>
+                </tr>
+            </table>
             
             <table class="table table-striped">
                 <tr>
