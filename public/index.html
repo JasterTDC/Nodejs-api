@@ -36,6 +36,7 @@
                     <li><a href="#/api/feed/title">/api/feed/title/{keyword}</a></li>
                     <li><a href="#/api/feed/desc">/api/feed/desc/{keyword}</a></li>
                     <li><a href="#/api/feed/descDate">/api/feed/descDate</a></li>
+                    <li><a href="#/api/feed/chart/descDate">/api/feed/chart/descDate</a></li>
                     <li><a href="#/api/feed/date">/api/feed/date</a></li>
                 </ol>
             </ol>
@@ -384,6 +385,32 @@
                     <td>JSON</td>
                 </tr>
             </table>
+            
+            <table class="table table-striped">
+                <tr>
+                    <th colspan="2"><a name="/api/feed/chart/descDate">/api/feed/chart/desDate?keyword=[palabra clave]&from=[fecha]&to=[fecha]</a></th>
+                </tr>
+                <tr>
+                    <th>Descripción</th>
+                    <td>Obtiene todas las noticias almacenadas en la base de datos que contenga en la descripción la palabra clave indicada, y se haya publicado entre las dos fechas establecidas. </td>
+                </tr>
+                <tr>
+                    <th>Parámetros</th>
+                    <td>
+                        Keyword = { palabra clave } <br />
+                        From = Fecha inicio ("YYYY-mm-dd") <br />
+                        To = Fecha fin ("YYYY-mm-dd")
+                    </td>
+                </tr>
+                <tr>
+                    <th>Método</th>
+                    <td>GET</td>
+                </tr>
+                <tr>
+                    <th>Tipo devuelto</th>
+                    <td>JSON</td>
+                </tr>
+            </table>            
             
             <table class="table table-striped">
                 <tr>

@@ -45,6 +45,22 @@ module.exports = function (app){
         });
     });
     
+    app.get('/api/feed/chart/descDate', function (req,res){
+        var fromDate = new Date(req.query.from);
+        var toDate = new Date(req.query.to);
+        
+        console.log (fromDate);
+        console.log (toDate);
+        
+        var query = feed.find().where('description').regex(req.query.keyword).where('date').gt(fromDate).lt(toDate).limit(3);
+        
+        query.exec (function (err, news){
+            if (err)
+                res.send (err);
+            res.json (news);
+        });        
+    });
+    
     app.get('/api/feed/date', function (req,res){
         var fromDate = new Date(req.query.from);
         var toDate = new Date(req.query.to);
