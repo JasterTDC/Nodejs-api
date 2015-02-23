@@ -18,7 +18,7 @@ module.exports = function (app){
         }
     });
     
-    app.get ('/api/date', function (req, res){
+    app.get ('/api/avg/date', function (req, res){
         var from = new Date (req.query.from);
         var to = new Date (req.query.to);
         var list = [];
@@ -27,61 +27,57 @@ module.exports = function (app){
             res.sendFile ("code_1.html", { root : path.join (__dirname, '../../../public/error/')});
         }
         
-        if (req.query.keyword === undefined){
-            res.sendFile ("code_2.html", { root : path.join (__dirname, '../../../public/error/')});
-        }else{
-            var query = tw.find().lean().where('date').gt(from).lt(to);
-            
-            query.exec (function (err, conj){
-                /* We're going to obtain polarity average per day.  */
-                /* Calculate date range.  */
-                var date = from;
-                var minDate = from;
-                var maxDate = from;
-                
-                /* Assign time to minDate.  */
-                minDate.setHours(23);
-                minDate.setMinutes(59);
-                minDate.setSeconds(59);
-                
-                /* Assign time to maxDate */
-                maxDate.setHours(0);
-                maxDate.setMinutes(0);
-                maxDate.setSeconds(0);
-                
-                /* Assign time to date */
-                date.setHours(0);
-                date.setMinutes(0);
-                date.setSeconds(0);
-                
-                /* Assign date */
-                minDate.setDate(minDate.getDate() - 1);
-                maxDate.setDate(maxDate.getDate() + 1);
-                
-                /* Calculate average per day.  */
-                while (date.getDate() <= to.getDate()){
-                    /* Sum will contain average per day. */
-                    var sum = 0; 
-                    
-                    for (var i = 0; i < conj.length; i++){
-                        /* Extract date from tweets.  */
-                        var tdate = conj[i].date;
-                        
-                        /* Compare date with the date range.  */
-                        if (tdate < maxDate && tdate > minDate){
-                            sum = sum + conj[i].polarity;
-                        }
+        var query = tw.find().lean().where('date').gt(from).lt(to);
+
+        query.exec (function (err, conj){
+            /* We're going to obtain polarity average per day.  */
+            /* Calculate date range.  */
+            var date = from;
+            var minDate = from;
+            var maxDate = from;
+
+            /* Assign time to minDate.  */
+            minDate.setHours(23);
+            minDate.setMinutes(59);
+            minDate.setSeconds(59);
+
+            /* Assign time to maxDate */
+            maxDate.setHours(0);
+            maxDate.setMinutes(0);
+            maxDate.setSeconds(0);
+
+            /* Assign time to date */
+            date.setHours(0);
+            date.setMinutes(0);
+            date.setSeconds(0);
+
+            /* Assign date */
+            minDate.setDate(minDate.getDate() - 1);
+            maxDate.setDate(maxDate.getDate() + 1);
+
+            /* Calculate average per day.  */
+            while (date.getDate() <= to.getDate()){
+                /* Sum will contain average per day. */
+                var sum = 0; 
+
+                for (var i = 0; i < conj.length; i++){
+                    /* Extract date from tweets.  */
+                    var tdate = conj[i].date;
+
+                    /* Compare date with the date range.  */
+                    if (tdate < maxDate && tdate > minDate){
+                        sum = sum + conj[i].polarity;
                     }
-                    
-                    list.push ({ "date" : date.toUTCString, "sum" : sum });
-                    
-                    /* Increment the date range.  */
-                    minDate.setDate (minDate.getDate() + 1);
-                    maxDate.setDate (maxDate.getDate() + 1);
-                    date.setDate (date.getDate() + 1);
                 }
-            });
-        }        
+
+                list.push ({ "date" : date.toUTCString, "sum" : sum });
+
+                /* Increment the date range.  */
+                minDate.setDate (minDate.getDate() + 1);
+                maxDate.setDate (maxDate.getDate() + 1);
+                date.setDate (date.getDate() + 1);
+            }
+        });       
     });
     
     app.get ('/api/keydate', function (req, res){
