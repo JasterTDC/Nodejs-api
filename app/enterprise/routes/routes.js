@@ -32,9 +32,9 @@ module.exports = function (app){
         query.exec (function (err, conj){
             /* We're going to obtain polarity average per day.  */
             /* Calculate date range.  */
-            var date = from;
-            var minDate = from;
-            var maxDate = from;
+            var date = new Date(from);
+            var minDate = new Date(from);
+            var maxDate = new Date(from);
 
             /* Assign time to minDate.  */
             minDate.setHours(23);
@@ -69,14 +69,19 @@ module.exports = function (app){
                         sum = sum + conj[i].polarity;
                     }
                 }
-
-                list.push ({ "date" : date.toUTCString, "sum" : sum });
+                console.log(date);
+                list.push ({ "date" : date.toString(), "sum" : sum });
 
                 /* Increment the date range.  */
                 minDate.setDate (minDate.getDate() + 1);
                 maxDate.setDate (maxDate.getDate() + 1);
                 date.setDate (date.getDate() + 1);
             }
+            
+            if (err)
+                res.send(err);
+            res.json (list);
+                
         });       
     });
     
@@ -97,9 +102,9 @@ module.exports = function (app){
             query.exec (function (err, conj){
                 /* We're going to obtain polarity average per day.  */
                 /* Calculate date range.  */
-                var date = from;
-                var minDate = from;
-                var maxDate = from;
+                var date = new Date(from);
+                var minDate = new Date(from);
+                var maxDate = new Date(from);
                 
                 /* Assign time to minDate.  */
                 minDate.setHours(23);
@@ -134,14 +139,20 @@ module.exports = function (app){
                             sum = sum + conj[i].polarity;
                         }
                     }
-                    
-                    list.push ({ "date" : date.toUTCString, "sum" : sum });
+                    console.log(minDate);
+                    console.log(maxDate);
+                    list.push ({ "date" : date.toString(), "sum" : sum });
                     
                     /* Increment the date range.  */
                     minDate.setDate (minDate.getDate() + 1);
                     maxDate.setDate (maxDate.getDate() + 1);
                     date.setDate (date.getDate() + 1);
                 }
+                
+                if (err)
+                    res.send(err);
+                res.json (list);
+                
             });
         }
     });
