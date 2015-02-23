@@ -1,11 +1,15 @@
 var feed = require ('../models/feed');
 
 module.exports = function (app){
-    app.get ('/api/feed/', function (req,res){
-        feed.find(function (err, news){
+    app.get ('/api/feed/all', function (req,res){
+        var query = feed.find().lean();
+        
+        console.log (query);
+        
+        query.exec (function (err, conj){
             if (err)
                 res.send (err);
-            res.json (news);
+            res.json (conj);
         });
     });
     
@@ -68,7 +72,7 @@ module.exports = function (app){
         console.log (fromDate);
         console.log (toDate);
         
-        var query = feed.find().where('date').gt(fromDate).lt(toDate);
+        var query = feed.find().lean().where('date').gt(fromDate).lt(toDate);
         
         query.exec (function (err, news){
             if (err)
