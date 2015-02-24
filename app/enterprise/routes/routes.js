@@ -18,6 +18,48 @@ module.exports = function (app){
         }
     });
     
+    app.get ('/api/tw/keydate', function (req, res){
+        var from = new Date (req.query.from);
+        var to = new Date (req.query.to);
+        
+        if (from.getDate() > to.getDate()){
+            res.sendFile ("code_1.html", { root : path.join (__dirname, '../../../public/error/')});
+        }
+        
+        if (req.query.keyword === undefined){
+            res.sendFile ("code_2.html", { root : path.join (__dirname, '../../../public/error/')});
+        }else{
+            var query = tw.find().lean().where('tweet').regex(req.query.keyword).where('date').gt(from).lt(to).limit(6);
+            
+            query.exec (function (err, conj){
+                if (err)
+                    res.send (err);
+                res.json (conj); 
+            });
+        }  
+    });
+    
+    app.get('/api/count/keydate', function (req, res){
+        var from = new Date (req.query.from);
+        var to = new Date (req.query.to);
+        
+        if (from.getDate() > to.getDate()){
+            res.sendFile ("code_1.html", { root : path.join (__dirname, '../../../public/error/')});
+        }
+        
+        if (req.query.keyword === undefined){
+            res.sendFile ("code_2.html", { root : path.join (__dirname, '../../../public/error/')});
+        }else{
+            var query = tw.find().lean().where('tweet').regex(req.query.keyword).where('date').gt(from).lt(to).count();
+            
+            query.exec (function (err, conj){
+                if (err)
+                    res.send (err);
+                res.json ([{ "Num" : conj }]); 
+            });
+        }         
+    });
+    
     app.get ('/api/avg/date', function (req, res){
         var from = new Date (req.query.from);
         var to = new Date (req.query.to);
